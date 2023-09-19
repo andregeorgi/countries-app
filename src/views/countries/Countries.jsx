@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import LinearProgress from "@mui/material/LinearProgress";
 import { Container, Grid, Button } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
 
 const Countries = ({ clearRegionPickerHandler, selectedRegion }) => {
   const [data, setData] = useState([]);
@@ -30,20 +34,36 @@ const Countries = ({ clearRegionPickerHandler, selectedRegion }) => {
       ) : (
         <Grid container spacing={3} column={12} sx={{ margin: "20px 0" }}>
           <Grid item xs={12} sm={12} md={12} lg={12}>
-            <Button variant="contained" color="primary">
+            <Button
+              onClick={() => clearRegionPickerHandler()}
+              variant="contained"
+              color="primary"
+            >
               Pick another region
             </Button>
           </Grid>
-          {data.map((country) => {
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={6}
-              lg={6}
-              key={country.name.common}
-            ></Grid>;
-          })}
+          {data.map((country) => (
+            <Grid item xs={12} sm={12} md={6} lg={6} key={country.name.common}>
+              <Card sx={{ maxWidth: 500 }}>
+                <CardMedia
+                  component="img"
+                  image={country.flags.png}
+                  alt={country.flags.alt}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {country.name.common}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {`Population: ${country.population} `}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {`Capital: ${country.capital} `}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
       )}
     </Container>
