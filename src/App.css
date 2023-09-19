@@ -17,3 +17,7 @@ img {
 .region-container:hover {
   border: 1px solid #ba0e0e;
 }
+
+.progress {
+  margin: 10px 0;
+}
