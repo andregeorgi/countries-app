@@ -7,23 +7,30 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-const Countries = ({ clearRegionPickerHandler, selectedRegion }) => {
+const Countries = ({ clearRegionPickerHandler, selectedRegion, findText }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     setLoading(true);
     axios
       .get(`https://restcountries.com/v3.1/region/${selectedRegion}`)
       .then((response) => {
-        console.log(response.data);
         setData(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.log("Error fetching data:", error);
       })
       .finally(() => setLoading(false));
   }, [selectedRegion]);
+
+  useEffect(() => {
+    const filteredCountries = data.filter((country) =>
+      country.name.common.toLowerCase().includes(findText.toLowerCase())
+    );
+    setFilteredData(filteredCountries);
+  }, [data, findText]);
 
   return (
     <Container fixed>
@@ -42,7 +49,7 @@ const Countries = ({ clearRegionPickerHandler, selectedRegion }) => {
               Pick another region
             </Button>
           </Grid>
-          {data.map((country) => (
+          {filteredData.map((country) => (
             <Grid item xs={12} sm={12} md={6} lg={6} key={country.name.common}>
               <Card sx={{ maxWidth: 500 }}>
                 <CardMedia
