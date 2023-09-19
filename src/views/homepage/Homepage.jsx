@@ -11,11 +11,18 @@ const Homepage = () => {
     setSelectedRegion(region);
   };
 
+  const clearRegionPickerHandler = () => {
+    setSelectedRegion(null);
+  };
+
   return (
     <div>
       <Navbar />
       {selectedRegion ? (
-        <Countries />
+        <Countries
+          clearRegionPickerHandler={clearRegionPickerHandler}
+          selectedRegion={selectedRegion}
+        />
       ) : (
         <Region onRegionPickerHandler={onRegionPickerHandler} />
       )}
