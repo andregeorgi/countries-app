@@ -1,7 +1,7 @@
 import React from "react";
 import AfricaImage from "../../assets/africa.jpeg";
 import EuropeImage from "../../assets/europe.png";
-import AsiaImage from "../../assets/asia.png";
+import AsiaImage from "../../assets/asia.jpeg";
 import AmericaImage from "../../assets/america.jpeg";
 
 import CssBaseline from "@mui/material/CssBaseline";
